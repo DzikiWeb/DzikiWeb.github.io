@@ -2,36 +2,103 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>DzikiWeb</title>
+  <title>VALUE COUNTERBLOX</title>
 
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0b0014, #1a002b);
+      color: #ffffff;
       display: flex;
-      flex-direction: column;
-      justify-content: center; /* środek w pionie */
-      align-items: center;     /* środek w poziomie */
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(20, 10, 30, 0.85);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(120, 0, 255, 0.35);
     }
 
     h1 {
-      font-size: 64px;   /* duży napis */
-      font-weight: bold; /* pogrubienie */
-      margin: 0;
+      text-align: center;
+      font-size: 52px;
+      margin-bottom: 10px;
+      color: #c77dff;
     }
 
-    p {
-      font-size: 28px;
-      font-weight: bold;
+    .subtitle {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 40px;
+      color: #e0c8ff;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #1b0f2e, #12001f);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(160, 90, 255, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(180, 120, 255, 0.6);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #ffffff;
+    }
+
+    .card p {
       margin-top: 10px;
+      font-size: 16px;
+      color: #d6b8ff;
     }
   </style>
 </head>
 
 <body>
-  <h1>VALUE COUNTERBLOX</h1>
-  <p>ALL VALUE.</p>
+  <div class="container">
+    <h1>VALUE COUNTERBLOX</h1>
+    <div class="subtitle">ALL VALUE.</div>
+
+    <div class="cards">
+      <div class="card">
+        <h2>ITEM A</h2>
+        <p>Value: 1,200</p>
+      </div>
+
+      <div class="card">
+        <h2>ITEM B</h2>
+        <p>Value: 3,500</p>
+      </div>
+
+      <div class="card">
+        <h2>ITEM C</h2>
+        <p>Value: 7,800</p>
+      </div>
+
+      <div class="card">
+        <h2>ITEM D</h2>
+        <p>Value: 15,000</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
