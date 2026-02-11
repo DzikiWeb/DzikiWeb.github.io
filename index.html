@@ -658,31 +658,31 @@ const cardsPerPage = 50;
 let currentPage = 1;
 
 function getFilteredCards() {
-const filter = document.getElementById("searchInput").value.toLowerCase();
-const cards = document.querySelectorAll(".card");
+  const filter = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
 
-return Array.from(cards).filter(card =>
-card.querySelector("h2").innerText.toLowerCase().includes(filter)
-);
+  return Array.from(cards).filter(card =>
+    card.querySelector("h2").innerText.toLowerCase().includes(filter)
+  );
 }
 
 function showPage() {
-const cards = document.querySelectorAll(".card");
-const filtered = getFilteredCards();
+  const cards = document.querySelectorAll(".card");
+  const filtered = getFilteredCards();
 
-cards.forEach(card => card.style.display = "none");
+  cards.forEach(card => card.style.display = "none");
 
-const start = (currentPage - 1) * cardsPerPage;
-const end = start + cardsPerPage;
+  const start = (currentPage - 1) * cardsPerPage;
+  const end = start + cardsPerPage;
 
-filtered.slice(start, end).forEach(card => {
-card.style.display = "block";
-});
+  filtered.slice(start, end).forEach(card => {
+    card.style.display = "block";
+  });
 
-document.getElementById("prevBtn").disabled = currentPage === 1;
-document.getElementById("nextBtn").disabled = end >= filtered.length;
+  document.getElementById("prevBtn").disabled = currentPage === 1;
+  document.getElementById("nextBtn").disabled = end >= filtered.length;
 }
-  
+
 function nextPage() {
   currentPage++;
   showPage();
@@ -700,11 +700,8 @@ function filterCards() {
   showPage();
 }
 
-showPage();
-
-</script>
- 
-  function showTab(tabId, event) {
+/* 🔥 TA FUNKCJA MUSI BYĆ W ŚRODKU SCRIPT */
+function showTab(tabId, event) {
 
   document.querySelectorAll(".tab-content")
     .forEach(tab => tab.classList.remove("active"));
@@ -715,6 +712,9 @@ showPage();
   document.getElementById(tabId).classList.add("active");
   event.currentTarget.classList.add("active");
 }
+
+showPage();
+</script>
 
 
 </body>
