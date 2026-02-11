@@ -58,8 +58,8 @@ h1 {
 /* GRID */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
 /* CARD */
@@ -368,23 +368,26 @@ card.style.display = "block";
 document.getElementById("prevBtn").disabled = currentPage === 1;
 document.getElementById("nextBtn").disabled = end >= filtered.length;
 }
-
+  
 function nextPage() {
-currentPage++;
-showPage();
+  currentPage++;
+  showPage();
 }
 
 function prevPage() {
-currentPage--;
-showPage();
+  if (currentPage > 1) {
+    currentPage--;
+    showPage();
+  }
 }
 
 function filterCards() {
-currentPage = 1;
-showPage();
+  currentPage = 1;
+  showPage();
 }
 
 showPage();
+
 </script>
 
 </body>
