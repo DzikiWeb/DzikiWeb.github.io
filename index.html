@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>VALUE COUNTERBLOX</title>
-    <link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/png" href="logo.png">
 
 <style>
 body {
@@ -36,8 +36,23 @@ h1 {
 .subtitle {
   text-align: center;
   font-size: 18px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   color: #e0c8ff;
+}
+
+/* SEARCH */
+.search-box {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.search-box input {
+  width: 60%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
 }
 
 /* GRID */
@@ -72,7 +87,6 @@ h1 {
   font-size: 20px;
 }
 
-/* IMAGE */
 .weapon-img {
   width: 100%;
   max-height: 120px;
@@ -80,7 +94,6 @@ h1 {
   margin-bottom: 15px;
 }
 
-/* STATS */
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -101,6 +114,28 @@ h1 {
   font-size: 16px;
   color: #ffffff;
 }
+
+/* PAGINATION */
+.pagination {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #a855f7;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
 </style>
 </head>
 
@@ -110,366 +145,68 @@ h1 {
   <h1>VALUE COUNTERBLOX</h1>
   <div class="subtitle">ALL VALUE.</div>
 
-  <div class="cards">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search item..." onkeyup="filterCards()">
+  </div>
 
-    <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● GOOD</div>
-      <h2>AK47 ACE</h2>
-      <img src="AK47_Ace.png" alt="AK47 Ace" class="weapon-img">
+  <div class="cards" id="cardsContainer">
+    <!-- TWOJE KARTY ZOSTAJĄ TAKIE SAME -->
 
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>11</b>
         </div>
-        <div class="stat">
-          DG<br><b>5</b>
-        </div>
-        <div class="stat">
-          CK<br><b>11</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>5</b>
-        </div>
-      </div>
-    </div>
 
+  <div class="pagination">
+    <button onclick="prevPage()" id="prevBtn">Previous</button>
+    <button onclick="nextPage()" id="nextBtn">Next</button>
+  </div>
+</div>
 
-     <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● GOOD</div>
-      <h2>AK47 CLOWN</h2>
-      <img src="AK47_Clown.png" alt="AK47 Clown" class="weapon-img">
+<script>
+const cardsPerPage = 6;
+let currentPage = 1;
 
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>9</b>
-        </div>
-        <div class="stat">
-          DG<br><b>4</b>
-        </div>
-        <div class="stat">
-          CK<br><b>9</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>4</b>
-        </div>
-      </div>
-    </div>
+function getVisibleCards() {
+  const filter = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
 
+  return Array.from(cards).filter(card =>
+    card.querySelector("h2").innerText.toLowerCase().includes(filter)
+  );
+}
 
-     <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● GOOD</div>
-      <h2>AK47 BLOODBOOM</h2>
-      <img src="AK47_Bloodboom.png" alt="AK47 BloodBoom" class="weapon-img">
+function showPage() {
+  const cards = document.querySelectorAll(".card");
+  const visibleCards = getVisibleCards();
 
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>20</b>
-        </div>
-        <div class="stat">
-          CK<br><b>40</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>20</b>
-        </div>
-      </div>
-    </div>
+  cards.forEach(card => card.style.display = "none");
 
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● GOOD</div>
-      <h2>AK47 CODE ORANGE</h2>
-      <img src="AK47_Code_Orange.png" alt="AK47 Code Orange" class="weapon-img">
+  const start = (currentPage - 1) * cardsPerPage;
+  const end = start + cardsPerPage;
 
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>2</b>
-        </div>
-        <div class="stat">
-          DG<br><b>1</b>
-        </div>
-        <div class="stat">
-          CK<br><b>2</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>1</b>
-        </div>
-      </div>
-    </div>
+  visibleCards.slice(start, end).forEach(card => {
+    card.style.display = "block";
+  });
 
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 ELF</h2>
-      <img src="AK47_Elf.png" alt="AK47 Elf" class="weapon-img">
+  document.getElementById("prevBtn").disabled = currentPage === 1;
+  document.getElementById("nextBtn").disabled = end >= visibleCards.length;
+}
 
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>175</b>
-        </div>
-        <div class="stat">
-          DG<br><b>175</b>
-        </div>
-        <div class="stat">
-          CK<br><b>350</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>175</b>
-        </div>
-      </div>
-    </div>
+function nextPage() {
+  currentPage++;
+  showPage();
+}
 
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● MID</div>
-      <h2>AK47 EVE</h2>
-      <img src="AK47_Eve.png" alt="AK47 Eve" class="weapon-img">
+function prevPage() {
+  currentPage--;
+  showPage();
+}
 
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>13 000</b>
-        </div>
-        <div class="stat">
-          DG<br><b>13 500</b>
-        </div>
-        <div class="stat">
-          CK<br><b>27 000</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>13 000</b>
-        </div>
-      </div>
-    </div>
+function filterCards() {
+  currentPage = 1;
+  showPage();
+}
 
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● MID</div>
-      <h2>AK47 GALAXY CORPSE</h2>
-      <img src="AK47_Galaxy_Corpse.png" alt="AK47 Galaxy Corpse" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>200</b>
-        </div>
-        <div class="stat">
-          DG<br><b>200</b>
-        </div>
-        <div class="stat">
-          CK<br><b>400</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>200</b>
-        </div>
-      </div>
-    </div>
-
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● VERY GOOD</div>
-      <h2>AK47 GLO</h2>
-      <img src="AK47_Glo.png" alt="AK47 Glo" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>270 000</b>
-        </div>
-        <div class="stat">
-          DG<br><b>540 000</b>
-        </div>
-        <div class="stat">
-          CK<br><b>750 000</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>400 000</b>
-        </div>
-      </div>
-    </div>
-
-         <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● VERY GOOD</div>
-      <h2>AK47 GODESS</h2>
-      <img src="AK47_Godess.png" alt="AK47 Godess" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>370 000</b>
-        </div>
-        <div class="stat">
-          DG<br><b>640 000</b>
-        </div>
-        <div class="stat">
-          CK<br><b>850 000</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>500 000</b>
-        </div>
-      </div>
-    </div>
-
-       <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-
-          <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-
-
-          <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-
-
-          <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-
-
-          <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-
-
-          <!-- AK47 CARD -->
-    <div class="card">
-      <div class="rarity">● DECENT</div>
-      <h2>AK47 GIFTED</h2>
-      <img src="AK47_Gifted.png" alt="AK47 Gifted" class="weapon-img">
-
-      <div class="stats">
-        <div class="stat">
-          BASE<br><b>40</b>
-        </div>
-        <div class="stat">
-          DG<br><b>80</b>
-        </div>
-        <div class="stat">
-          CK<br><b>160</b>
-        </div>
-        <div class="stat">
-          UPG<br><b>40</b>
-        </div>
-      </div>
-    </div>
-    
+showPage();
+</script>
 
 </body>
 </html>
