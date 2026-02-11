@@ -641,9 +641,34 @@ h1 {
 <div id="calculator" class="tab-content">
   <div class="container">
     <h1>TRADE CALCULATOR</h1>
-    <p style="text-align:center; opacity:0.7;">
-      Fairness Calculator Coming Soon
-    </p>
+
+    <div style="text-align:center; margin-bottom:20px;">
+      <input type="text" id="calcSearch" placeholder="Search weapon..."
+        style="padding:10px; width:300px; border-radius:8px; border:none;"
+        onkeyup="filterCalcSkins()">
+    </div>
+
+    <div id="calcSkins" class="cards"></div>
+
+    <hr style="margin:40px 0; opacity:0.3;">
+
+    <div style="display:flex; gap:40px; justify-content:center; flex-wrap:wrap;">
+
+      <div>
+        <h2>Offer 1</h2>
+        <div id="offer1"></div>
+        <p>Total: <b id="total1">0</b></p>
+      </div>
+
+      <div>
+        <h2>Offer 2</h2>
+        <div id="offer2"></div>
+        <p>Total: <b id="total2">0</b></p>
+      </div>
+
+    </div>
+
+    <h2 id="result" style="text-align:center; margin-top:30px;"></h2>
   </div>
 </div>
 
@@ -715,6 +740,84 @@ function showTab(tabId, event) {
 }
 
 showPage();
+
+  /* ============================= */
+/* ===== TRADE CALCULATOR ===== */
+/* ============================= */
+
+let skinsData = [];
+
+document.querySelectorAll(".card").forEach(card => {
+  const name = card.querySelector("h2").innerText;
+  const value = parseInt(
+    card.querySelector(".stat b").innerText.replace(/\s/g, "")
+  );
+
+  skinsData.push({ name, value });
+});
+
+const calcContainer = document.getElementById("calcSkins");
+
+function renderCalcSkins(data) {
+  calcContainer.innerHTML = "";
+
+  data.forEach(skin => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.style.cursor = "pointer";
+    div.innerHTML = `
+      <h3>${skin.name}</h3>
+      <p>Value: ${skin.value}</p>
+      <button onclick="addToOffer(1, ${skin.value}, '${skin.name}')">Add to Offer 1</button>
+      <button onclick="addToOffer(2, ${skin.value}, '${skin.name}')">Add to Offer 2</button>
+    `;
+    calcContainer.appendChild(div);
+  });
+}
+
+function filterCalcSkins() {
+  const filter = document.getElementById("calcSearch").value.toLowerCase();
+  const filtered = skinsData.filter(s =>
+    s.name.toLowerCase().includes(filter)
+  );
+  renderCalcSkins(filtered);
+}
+
+let totalOffer1 = 0;
+let totalOffer2 = 0;
+
+function addToOffer(offer, value, name) {
+
+  if (offer === 1) {
+    totalOffer1 += value;
+    document.getElementById("offer1").innerHTML += `<div>${name} - ${value}</div>`;
+    document.getElementById("total1").innerText = totalOffer1;
+  } else {
+    totalOffer2 += value;
+    document.getElementById("offer2").innerHTML += `<div>${name} - ${value}</div>`;
+    document.getElementById("total2").innerText = totalOffer2;
+  }
+
+  checkFairness();
+}
+
+function checkFairness() {
+  const result = document.getElementById("result");
+
+  if (totalOffer1 === totalOffer2) {
+    result.innerText = "✅ FAIR TRADE";
+    result.style.color = "lime";
+  } else if (totalOffer1 > totalOffer2) {
+    result.innerText = "Offer 1 OVERPAY";
+    result.style.color = "orange";
+  } else {
+    result.innerText = "Offer 2 OVERPAY";
+    result.style.color = "orange";
+  }
+}
+
+renderCalcSkins(skinsData);
+
 </script>
 
 
