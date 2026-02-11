@@ -10,6 +10,35 @@
 
 
 <style>
+  .tabs {
+  display: flex;
+  gap: 20px;
+  padding: 20px 40px;
+  border-bottom: 1px solid #222;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  padding-bottom: 8px;
+}
+
+.tab-btn.active {
+  color: white;
+  border-bottom: 2px solid red;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -133,6 +162,14 @@ h1 {
 </head>
 
 <body>
+
+<!-- ZAKŁADKI -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('values', event)">Values</button>
+  <button class="tab-btn" onclick="showTab('calculator', event)">Calculator</button>
+</div>
+<div id="values" class="tab-content active">
+
 
 <div class="container">
 <h1>VALUE COUNTERBLOX</h1>
@@ -595,6 +632,18 @@ h1 {
 </div>
 </div>
 
+  </div>
+
+  <div id="calculator" class="tab-content">
+  <div class="container">
+    <h1>TRADE CALCULATOR</h1>
+    <p style="text-align:center; opacity:0.7;">
+      Fairness Calculator Coming Soon
+    </p>
+  </div>
+</div>
+
+
 </div>
 
 <div class="pagination">
@@ -654,6 +703,19 @@ function filterCards() {
 showPage();
 
 </script>
+ 
+  function showTab(tabId, event) {
+
+  document.querySelectorAll(".tab-content")
+    .forEach(tab => tab.classList.remove("active"));
+
+  document.querySelectorAll(".tab-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  document.getElementById(tabId).classList.add("active");
+  event.currentTarget.classList.add("active");
+}
+
 
 </body>
 </html>
