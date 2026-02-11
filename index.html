@@ -8,15 +8,14 @@
 <style>
 body {
   margin: 0;
-  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   background: linear-gradient(135deg, #0b0014, #1a002b);
-  color: #ffffff;
+  color: white;
 }
 
 .container {
   width: 95%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 40px auto;
   background: rgba(20, 10, 30, 0.9);
   border-radius: 16px;
@@ -32,38 +31,23 @@ h1 {
 
 .subtitle {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   color: #e0c8ff;
 }
 
-/* SEARCH */
-.search-box {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.search-box input {
-  padding: 10px 15px;
-  width: 300px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-/* GRID */
+/* GRID 5 W RZĘDZIE */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
 /* CARD */
 .card {
   background: linear-gradient(180deg, #0f0f0f, #050505);
   border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(120, 0, 255, 0.3);
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(120, 0, 255, 0.3);
   transition: 0.3s;
 }
 
@@ -74,56 +58,39 @@ h1 {
 
 .rarity {
   font-size: 12px;
+  margin-bottom: 8px;
   color: #a855f7;
-  margin-bottom: 10px;
+}
+
+.card h2 {
+  font-size: 16px;
+  margin: 5px 0 10px 0;
 }
 
 .weapon-img {
   width: 100%;
-  max-height: 120px;
+  max-height: 100px;
   object-fit: contain;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 5px;
 }
 
 .stat {
   background: #111;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 6px;
+  border-radius: 6px;
   text-align: center;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .stat b {
   display: block;
-  margin-top: 5px;
-  font-size: 16px;
-}
-
-/* PAGINATION */
-.pagination {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.pagination button {
-  padding: 8px 15px;
-  margin: 5px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #7b2cbf;
-  color: white;
-}
-
-.pagination button:disabled {
-  background: #444;
-  cursor: not-allowed;
+  font-size: 13px;
 }
 </style>
 </head>
@@ -132,144 +99,37 @@ h1 {
 
 <div class="container">
 <h1>VALUE COUNTERBLOX</h1>
-<div class="subtitle">ALL VALUE.</div>
+<div class="subtitle">50 SKINS PER PAGE</div>
 
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="Search item..." onkeyup="filterCards()">
-</div>
+<div class="cards">
 
-<div class="cards" id="cardsContainer">
-
-<!-- KARTY -->
-
-<div class="card">
-<div class="rarity">● GOOD</div>
-<h2>AK47 ACE</h2>
-<img src="AK47_Ace.png" class="weapon-img">
-<div class="stats">
-<div class="stat">BASE<b>11</b></div>
-<div class="stat">DG<b>5</b></div>
-<div class="stat">CK<b>11</b></div>
-<div class="stat">UPG<b>5</b></div>
-</div>
-</div>
-
-<div class="card">
-<div class="rarity">● GOOD</div>
-<h2>AK47 CLOWN</h2>
-<img src="AK47_Clown.png" class="weapon-img">
-<div class="stats">
-<div class="stat">BASE<b>9</b></div>
-<div class="stat">DG<b>4</b></div>
-<div class="stat">CK<b>9</b></div>
-<div class="stat">UPG<b>4</b></div>
-</div>
-</div>
-
-<div class="card">
-<div class="rarity">● GOOD</div>
-<h2>AK47 BLOODBOOM</h2>
-<img src="AK47_Bloodboom.png" class="weapon-img">
-<div class="stats">
-<div class="stat">BASE<b>40</b></div>
-<div class="stat">DG<b>20</b></div>
-<div class="stat">CK<b>40</b></div>
-<div class="stat">UPG<b>20</b></div>
-</div>
-</div>
-
-<div class="card">
-<div class="rarity">● GOOD</div>
-<h2>AK47 CODE ORANGE</h2>
-<img src="AK47_Code_Orange.png" class="weapon-img">
-<div class="stats">
-<div class="stat">BASE<b>2</b></div>
-<div class="stat">DG<b>1</b></div>
-<div class="stat">CK<b>2</b></div>
-<div class="stat">UPG<b>1</b></div>
-</div>
-</div>
-
-<div class="card">
-<div class="rarity">● DECENT</div>
-<h2>AK47 ELF</h2>
-<img src="AK47_Elf.png" class="weapon-img">
-<div class="stats">
-<div class="stat">BASE<b>175</b></div>
-<div class="stat">DG<b>175</b></div>
-<div class="stat">CK<b>350</b></div>
-<div class="stat">UPG<b>175</b></div>
-</div>
-</div>
-
-<div class="card">
-<div class="rarity">● MID</div>
-<h2>AK47 EVE</h2>
-<img src="AK47_Eve.png" class="weapon-img">
-<div class="stats">
-<div class="stat">BASE<b>13000</b></div>
-<div class="stat">DG<b>13500</b></div>
-<div class="stat">CK<b>27000</b></div>
-<div class="stat">UPG<b>13000</b></div>
-</div>
-</div>
-
-</div>
-
-<div class="pagination">
-<button onclick="prevPage()" id="prevBtn">Previous</button>
-<button onclick="nextPage()" id="nextBtn">Next</button>
-</div>
-
-</div>
+<!-- GENERUJEMY 50 KART -->
 
 <script>
-const cardsPerPage = 6;
-let currentPage = 1;
+const skins = [
+"ACE","CLOWN","BLOODBOOM","CODE ORANGE","ELF","EVE","GALAXY","GIFTED","GLO","GODESS"
+];
 
-function getFilteredCards() {
-const filter = document.getElementById("searchInput").value.toLowerCase();
-const cards = document.querySelectorAll(".card");
-
-return Array.from(cards).filter(card =>
-card.querySelector("h2").innerText.toLowerCase().includes(filter)
-);
+for(let i=1;i<=50;i++){
+  const skinName = skins[(i-1)%skins.length];
+  document.write(`
+  <div class="card">
+    <div class="rarity">● ${i%5===0?"VERY GOOD":i%3===0?"MID":"GOOD"}</div>
+    <h2>AK47 ${skinName} ${i}</h2>
+    <img src="AK47_Ace.png" class="weapon-img">
+    <div class="stats">
+      <div class="stat">BASE<b>${i*10}</b></div>
+      <div class="stat">DG<b>${i*15}</b></div>
+      <div class="stat">CK<b>${i*20}</b></div>
+      <div class="stat">UPG<b>${i*12}</b></div>
+    </div>
+  </div>
+  `);
 }
-
-function showPage() {
-const cards = document.querySelectorAll(".card");
-const filtered = getFilteredCards();
-
-cards.forEach(card => card.style.display = "none");
-
-const start = (currentPage - 1) * cardsPerPage;
-const end = start + cardsPerPage;
-
-filtered.slice(start, end).forEach(card => {
-card.style.display = "block";
-});
-
-document.getElementById("prevBtn").disabled = currentPage === 1;
-document.getElementById("nextBtn").disabled = end >= filtered.length;
-}
-
-function nextPage() {
-currentPage++;
-showPage();
-}
-
-function prevPage() {
-currentPage--;
-showPage();
-}
-
-function filterCards() {
-currentPage = 1;
-showPage();
-}
-
-showPage();
 </script>
+
+</div>
+</div>
 
 </body>
 </html>
